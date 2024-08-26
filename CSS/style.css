@@ -1,0 +1,31 @@
+body {
+    background-image: url(../IMG/Backgraund.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 2000px;
+}
+
+.header {
+    display: flex;
+    position: fixed;
+    background-color: rgb(255 255 255 / 30%);
+    padding: 20px 20px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-radius: 20px;
+    font-size: 20px;
+    justify-content: space-between;
+
+}
+
+.header .nav {
+    display: flex;
+}
+
+.nav a {
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
