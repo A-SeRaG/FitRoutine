@@ -1,31 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     background-image: url(../IMG/Backgraund.jpg);
     background-attachment: fixed;
     background-size: cover;
     font-family: Arial, Helvetica, sans-serif;
     min-height: 2000px;
+    overflow: hidden;
 }
 
 .header {
+    margin-top: 15px;
     display: flex;
-    position: fixed;
-    background-color: rgb(255 255 255 / 30%);
+    background-color: rgba(27, 27, 27, 0.568);
     padding: 20px 20px;
     width: 80%;
+    min-width: 600px;
     margin-left: 10%;
     margin-right: 10%;
     border-radius: 20px;
     font-size: 20px;
-    justify-content: space-between;
-
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
 }
 
+/* ----------logo------------- */
+.logo img {
+    width: 230px;;
+}
+/* --------------------------- */
+
+/* --------navegation bar-------- */
 .header .nav {
     display: flex;
+    width: 500px;
 }
-
 .nav a {
+    position: relative;
     text-decoration: none;
     text-transform: uppercase;
+    font-size: 18px;
+    color: #909090;
+    margin: auto;
+    transition: 0.3s;
 }
+.nav a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background-color: #22D822;
+    bottom: -7px;
+    transition: 0.3s;
+}
+.nav a:hover {
+    color: white;
+}
+.nav a:hover::before {
+    width: 100%;
+}
+/* ------------------------------- */
 
+/* ------------Buttons------------ */
+.bt1  {
+    background-color: #22D822;
+    border: none;
+    color: white;
+    width: 90px;
+    height: 35px;
+    border-radius: 15px;
+    font-size: 18px;
+}
+.bt2  {
+    background-color: #22D822;
+    border: none;
+    color: white;
+    width: 90px;
+    height: 35px;
+    border-radius: 15px;
+    font-size: 18px;
+}
+.bt1:hover {
+    background-color: #8be28b;
+}
+.bt2:hover {
+    background-color: #8be28b;
+}
+/* ------------------------------- */
