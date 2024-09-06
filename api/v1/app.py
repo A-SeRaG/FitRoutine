@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Response
+from pydantic import BaseModel
+from fastapi import FastAPI, Response, Query
 from pydantic import BaseModel, EmailStr
 from models import storage
 from models.exercise import Exercise
@@ -38,11 +39,6 @@ def get_exercise(exercise_name: str):
             index = index + 1
     return exercises
 
-from fastapi import FastAPI, Query
-from pydantic import BaseModel
-from typing import Optional
-
-app = FastAPI()
 
 @app.get('/api/v1/bmi')
 def calculate_bmi(w: float = Query(..., description="Weight in kilograms"), h: float = Query(..., description="Height in centimeters")):
