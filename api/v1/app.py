@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 from fastapi import FastAPI, Response, Query, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
 from typing import Callable
@@ -24,6 +26,10 @@ class BodyRequest(BaseModel):
 
 app = FastAPI()
 
+app.mount("/static/css", StaticFiles(directory="CSS"), name="css")
+app.mount("/static/img", StaticFiles(directory="IMG"), name="img")
+
+templates = Jinja2Templates(directory="HTML")
 
 @app.get('/api/v1/exercise')
 def all_exercises():
@@ -59,8 +65,8 @@ def calculate_bmi(w: float = Query(..., description="Weight in kilograms"), h: f
 
 
 @app.get('/')
-def all_users():
-    return storage.all(User)
+def all_users(request: Request):
+    return templates.TemplateResponse(name='Home.html', context={"request": request, "reviews": storage.all(Review)})
 
 @app.post('/register')
 def register(body: RegisterRequest, response:Response):
