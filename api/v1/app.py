@@ -1,9 +1,12 @@
 from pydantic import BaseModel
-from fastapi import FastAPI, Response, Query
+from fastapi import FastAPI, Response, Query, Request
 from pydantic import BaseModel, EmailStr
+from datetime import datetime
+from typing import Callable
 from models import storage
 from models.exercise import Exercise
 from models.session import Session
+from models.review import Review
 from models.user import User
 from hashlib import md5
 
@@ -12,6 +15,12 @@ class RegisterRequest(BaseModel):
     password: str
     first_name: str
     last_name: str
+
+class BodyRequest(BaseModel):
+    exercise_id: str
+    text: str
+    stars: int
+    user_id: str = None
 
 app = FastAPI()
 
@@ -44,7 +53,7 @@ def get_exercise(exercise_name: str):
 def calculate_bmi(w: float = Query(..., description="Weight in kilograms"), h: float = Query(..., description="Height in centimeters")):
     if h <= 0:
         return {"Error": "Height must be greater than 0"}
-    height_in_meters = h / 100  # Convert height to meters
+    height_in_meters = h / 100
     bmi = w / (height_in_meters ** 2)
     return {"bmi": bmi}
 
@@ -72,8 +81,18 @@ def register(body: RegisterRequest, response:Response):
     response.set_cookie(key='session', value=str(session.id))
     return {'message': 'User registered successfully', 'session_id': str(session.id)}
 
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
+
 @app.post('/login')
-def login(email, password, response: Response):
+def login(body: LoginRequest, response: Response):
+    if not body.email:
+        return {'Error': 'Email is required field'}
+    elif not body.password:
+        return {'Error': 'Password is required field'}
+    email = body.email
+    password = body.password
     hashed_password = md5(password.encode()).hexdigest()
     users = storage.all(User)
     for user in users:
@@ -84,3 +103,33 @@ def login(email, password, response: Response):
             response.set_cookie(key='session', value=str(session.id))
             return {'message': 'User logged in successfully', 'new_session_id': str(session.id)}
     return {'error': 'user password and email did not match any user in our database'}
+
+def loggedin(func: Callable):
+    def wrapper(request: Request, body: BodyRequest):
+        session = None
+        session_id = request.cookies.get('session')
+        sessions = storage.all(Session)
+        for thissession in sessions:
+            if thissession.id == session_id:
+                session = thissession
+                break
+        else:
+            return {'Error': 'User must be logged in'}
+        if datetime.now() > session.expires_at:
+            storage.delete(session)
+            storage.save()
+            return {'Error': 'Session expired, Please log in again'}
+
+        body.user_id = session.user_id
+        return func(request, body)
+    return wrapper
+
+@app.post('/feedback')
+@loggedin
+def review(request: Request, body: BodyRequest):
+    if not (0 <= body.stars <= 5):
+        return {'Error': 'User must give from 0 to 5 stars'}
+    review = Review(user_id=body.user_id, exercise_id=body.exercise_id, stars=body.stars, text=body.text)
+    storage.new(review)
+    storage.save()
+    return {'Success': 'Feedback saved'}
