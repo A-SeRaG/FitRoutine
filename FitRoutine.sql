@@ -1,9 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS FitRoutine;
+USE DATABASE FitRoutine;
 CREATE TABLE User
 (
-    user_id INT not null auto,
-   first_name VARCHAR(50 ) not NULL,
-   last_name VARCHAR(50)not null,
+    user_id INT not null,
+   first_name VARCHAR(50) not NULL,
+   last_name VARCHAR(50) not null,
     date_of_birth date not null,
     age INT not null,
     phone INT not null,
