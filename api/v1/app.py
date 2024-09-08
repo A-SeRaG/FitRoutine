@@ -29,6 +29,7 @@ app = FastAPI()
 
 app.mount("/static/css", StaticFiles(directory="CSS"), name="css")
 app.mount("/static/img", StaticFiles(directory="IMG"), name="img")
+app.mount("/static/js", StaticFiles(directory="JS"), name="js")
 
 templates = Jinja2Templates(directory="HTML")
 
@@ -64,6 +65,18 @@ def calculate_bmi(w: float = Query(..., description="Weight in kilograms"), h: f
     bmi = w / (height_in_meters ** 2)
     return {"bmi": bmi}
 
+
+@app.get('/logout')
+def logout(response:Response, request:Request):
+    session_id = request.cookies.get('session')
+    sessions = storage.all(Session)
+    for thissession in sessions:
+        if thissession.id == session_id:
+            storage.delete(thissession)
+            response = RedirectResponse(url='/')
+            response.delete_cookie(key='session')
+            return response
+    return {'Error': 'User must be logged in'}
 
 @app.get('/')
 def all_users(request: Request):

@@ -19,8 +19,13 @@
             <a href="/feedback">Feedback</a>
         </div>
         <div class="buttons">
-            <button class="bt1">Register</button>
-            <button class="bt2">Login</button>
+            <form action="/login">
+                <button class="bt1" id="registerBtn">Register</button>
+                <button class="bt2" id="loginBtn">Login</button>
+            </form>
+            <form action="/logout">
+                <button class="bt1" id="logoutBtn" style="display:none;">Logout</button>
+            </form>
         </div>
         <input type="checkbox" id="check">
         <label for="do" class="icons">
@@ -75,5 +80,6 @@
             <p>Privacy Policy  |  Terms of Use</p>
         </div>
     </footer>
+    <script src="/static/js/sessionCheck.js"></script>
 </body>
 </html>
