@@ -148,3 +148,7 @@ def review(request: Request, body: BodyRequest):
     storage.new(review)
     storage.save()
     return {'Success': 'Feedback saved'}
+
+@app.get('/feedback')
+def review(request: Request):
+    return templates.TemplateResponse(name='Feedback.html', context={"request": request})
