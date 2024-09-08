@@ -78,6 +78,27 @@ def all_users(request: Request):
         reviews_data.append(data)
     return templates.TemplateResponse(name='Home.html', context={"request": request, "reviews": reviews_data})
 
+@app.get('/contact')
+def nothing(request: Request):
+    return templates.TemplateResponse(name='Contact.html', context={"request": request})
+
+@app.get('/workout')
+def exercises(request: Request):
+    exercises_formatted = []
+    exercises = storage.all(Exercise)
+    for muscle, muscle_exercises in exercises.items():
+        for muscle_exercise in muscle_exercises:
+            data = {
+                "target_muscle": muscle,
+                "name": muscle_exercise.name,
+                "sets": muscle_exercise.sets,
+                "description": muscle_exercise.description,
+                "rest_period_in_seconds": muscle_exercise.rest_period_in_seconds
+            }
+            exercises_formatted.append(data)
+    return templates.TemplateResponse(name='Workouts.html', context={"request": request, "exercises":exercises_formatted})
+
+
 @app.post('/register')
 def register(body: RegisterRequest, response:Response):
     if not body.email:
