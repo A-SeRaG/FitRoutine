@@ -1,5 +1,6 @@
 from pydantic import BaseModel
-from fastapi import FastAPI, Response, Query, Request
+from fastapi import FastAPI, Response, Query, Request, Form
+from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, EmailStr
@@ -19,7 +20,7 @@ class RegisterRequest(BaseModel):
     last_name: str
 
 class BodyRequest(BaseModel):
-    exercise_id: str
+    exercise_name: str
     text: str
     stars: int
     user_id: str = None
@@ -119,35 +120,38 @@ def login(body: LoginRequest, response: Response):
             return {'message': 'User logged in successfully', 'new_session_id': str(session.id)}
     return {'error': 'user password and email did not match any user in our database'}
 
-def loggedin(func: Callable):
-    def wrapper(request: Request, body: BodyRequest):
-        session = None
-        session_id = request.cookies.get('session')
-        sessions = storage.all(Session)
-        for thissession in sessions:
-            if thissession.id == session_id:
-                session = thissession
-                break
-        else:
-            return {'Error': 'User must be logged in'}
-        if datetime.now() > session.expires_at:
-            storage.delete(session)
-            storage.save()
-            return {'Error': 'Session expired, Please log in again'}
-
-        body.user_id = session.user_id
-        return func(request, body)
-    return wrapper
-
 @app.post('/feedback')
-@loggedin
-def review(request: Request, body: BodyRequest):
-    if not (0 <= body.stars <= 5):
-        return {'Error': 'User must give from 0 to 5 stars'}
-    review = Review(user_id=body.user_id, exercise_id=body.exercise_id, stars=body.stars, text=body.text)
+def review(
+    request: Request,
+    exercise_name: str = Form(...),
+    text: str = Form(...),
+    stars: int = Form(...)):
+    id = ""
+    exercises = storage.all(Exercise)
+    for key, value in exercises.items():
+        for exercise in value:
+            if exercise.name.lower() == exercise_name.lower():
+                id = exercise.id
+    if id == "":
+        return {"failed": 'Cannot find this exercise in our database'}
+    session = None
+    session_id = request.cookies.get('session')
+    sessions = storage.all(Session)
+    for thissession in sessions:
+        if thissession.id == session_id:
+            session = thissession
+            break
+    else:
+        return {'Error': 'User must be logged in'}
+    user_id = session.user_id
+    if datetime.now() > session.expires_at:
+        storage.delete(session)
+        storage.save()
+        return {'Error': 'Session expired, Please log in again'}
+    review = Review(user_id=user_id, exercise_id=id, stars=stars, text=text)
     storage.new(review)
     storage.save()
-    return {'Success': 'Feedback saved'}
+    return RedirectResponse(url='/', status_code=303)
 
 @app.get('/feedback')
 def review(request: Request):
