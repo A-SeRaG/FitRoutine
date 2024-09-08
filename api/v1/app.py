@@ -73,6 +73,7 @@ def logout(response:Response, request:Request):
     for thissession in sessions:
         if thissession.id == session_id:
             storage.delete(thissession)
+            storage.save()
             response = RedirectResponse(url='/')
             response.delete_cookie(key='session')
             return response
