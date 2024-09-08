@@ -5,7 +5,7 @@
 }
 
 body {
-    background-image: url(../IMG/Backgraund.jpg);
+    background-image: url('/static/img/Backgraund.jpg');
     background-attachment: fixed;
     background-size: cover;
     font-family: Arial, Helvetica, sans-serif;
