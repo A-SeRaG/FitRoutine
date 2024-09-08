@@ -1,7 +1,7 @@
-CREATE DATABASE FitRoutine;
+CREATE DATABASE  IF NOT EXISTS FitRoutine;
 CREATE TABLE User
 (
-    user_id INT not null,
+    user_id INT not null auto,
    first_name VARCHAR(50 ) not NULL,
    last_name VARCHAR(50)not null,
     date_of_birth date not null,
@@ -16,7 +16,7 @@ CREATE TABLE User
 );
 CREATE TABLE IF NOT EXISTS exercise
 (
-    exercise_id INT NOT NULL,
+    exercise_id INT NOT NULL auto,
     excercise_name VARCHAR(8) not null,
     exercise_description VARCHAR(20) not null,
     target_muscle VARCHAR(128) not null,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS exercise
 );
 CREATE TABLE IF NOT EXISTS review
 (
-    exercise_id INT not NULL,
+    exercise_id INT not NULL auto,
     user_id INT not NULL,
     stars INT NOT NULL,
     text VARCHAR(256) not null,
