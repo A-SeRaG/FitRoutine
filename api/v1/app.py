@@ -100,36 +100,42 @@ def exercises(request: Request):
 
 
 @app.post('/register')
-def register(body: RegisterRequest, response:Response):
-    if not body.email:
+def register(request:Request,
+             response:Response,
+             first_name: str=Form(...),
+             last_name: str=Form(...),
+             email: str=Form(...),
+             password: str=Form(...)):
+    if not email:
         return {'Error': 'Email is required field'}
-    elif not body.password:
+    elif not password:
         return {'Error': 'Password is required field'}
     users = storage.all(User)
     for user in users:
-        if user.email == body.email:
+        if user.email.lower() == email.lower():
             return {'Error': 'Email already in use'}
-    newUser = User(email=body.email, password=body.password, last_name=body.last_name, first_name=body.first_name)
+    newUser = User(email=email, password=password, last_name=last_name, first_name=first_name)
     storage.new(newUser)
     storage.save()
     session = Session(user_id=newUser.id)
     storage.new(session)
     storage.save()
+    response = RedirectResponse(url='/', status_code=303)
     response.set_cookie(key='session', value=str(session.id))
-    return {'message': 'User registered successfully', 'session_id': str(session.id)}
+    return response
 
 class LoginRequest(BaseModel):
     email: EmailStr
     password: str
 
 @app.post('/login')
-def login(body: LoginRequest, response: Response):
-    if not body.email:
+def login(response: Response, request:Request,
+          email:str=Form(...),
+          password:str=Form(...)):
+    if not email:
         return {'Error': 'Email is required field'}
-    elif not body.password:
+    elif not password:
         return {'Error': 'Password is required field'}
-    email = body.email
-    password = body.password
     hashed_password = md5(password.encode()).hexdigest()
     users = storage.all(User)
     for user in users:
@@ -137,8 +143,9 @@ def login(body: LoginRequest, response: Response):
             session = Session(user_id=user.id)
             storage.new(session)
             storage.save()
+            response = RedirectResponse(url='/', status_code=303)
             response.set_cookie(key='session', value=str(session.id))
-            return {'message': 'User logged in successfully', 'new_session_id': str(session.id)}
+            return response
     return {'error': 'user password and email did not match any user in our database'}
 
 @app.post('/feedback')
@@ -177,3 +184,7 @@ def review(
 @app.get('/feedback')
 def review(request: Request):
     return templates.TemplateResponse(name='Feedback.html', context={"request": request})
+
+@app.get('/login')
+def login_page(request: Request):
+    return templates.TemplateResponse(name='Login.html', context={"request":request})
