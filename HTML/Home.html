@@ -27,6 +27,15 @@
             <i class='bx bx-x' id="close"></i>
         </label>
     </div>
+    {% for review in reviews %}
+    <h1 style="text-align: center; color: greenyellow; margin: 20px;">User review</h1>
+    <div style="text-align: center; color: pink; margin: 20px;">
+        <strong>User:</strong> {{ review.user }}<br>
+        <strong>Exercise:</strong> {{ review.exercise }}<br>
+        <strong>Review:</strong> {{ review.text }}<br>
+        <strong>Rating:</strong> {{ review.stars }} stars
+    </div>
+    {% endfor %}
     <input type="checkbox" id="do">
     <label for="do" class="menu">
         <a href="/">HOME</a>

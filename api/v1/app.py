@@ -66,7 +66,16 @@ def calculate_bmi(w: float = Query(..., description="Weight in kilograms"), h: f
 
 @app.get('/')
 def all_users(request: Request):
-    return templates.TemplateResponse(name='Home.html', context={"request": request, "reviews": storage.all(Review)})
+    reviews_data = []
+    reviews = storage.all(Review)
+    for review in reviews:
+        data = {}
+        data['user'] = storage.get(User, review.user_id).email
+        data['exercise'] = storage.get(Exercise, review.exercise_id).name
+        data['text'] = review.text
+        data['stars'] = review.stars
+        reviews_data.append(data)
+    return templates.TemplateResponse(name='Home.html', context={"request": request, "reviews": reviews_data})
 
 @app.post('/register')
 def register(body: RegisterRequest, response:Response):
