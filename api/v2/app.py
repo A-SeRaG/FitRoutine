@@ -103,7 +103,7 @@ def logout(response: Response, request: Request):
             response.delete_cookie(key="session_id")
             response.delete_cookie(key="user_id")
             return response
-    return templates.TemplateResponse(name="Login.html", context={"request": request, "login_error": "Need to login first to logout"})
+    return RedirectResponse("/login?login_error User must log in first")
 
 
 @app.get('/')
