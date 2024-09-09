@@ -39,6 +39,7 @@ def logged(func):
         return RedirectResponse(url="/login?login_error session does not exist", status_code=303)
     return ensure_logged_in
 
+
 @app.post("/register")
 def register(
         response: Response,
@@ -62,11 +63,13 @@ def register(
     response.set_cookie(key="user_id", value=str(newUser.id))
     return response
 
+
 @app.get("/login")
 def login_page(request: Request):
     register_error = request.query_params.get("register_error", None)
     login_error = request.query_params.get("login_error", None)
     return templates.TemplateResponse(name="Login.html", context={"request": request, "register_error": register_error, "login_error": login_error})
+
 
 @app.post("/login")
 def login(response: Response,
@@ -85,8 +88,9 @@ def login(response: Response,
             return response
     return RedirectResponse("/login?login_error Wrong password or email", status_code=303)
 
+
 @app.get("/logout")
-def logout(response:Response, request:Request):
+def logout(response: Response, request: Request):
     session_id = request.cookies.get("session_id")
     sessions = storage.all(Session)
     for session in sessions:
@@ -98,7 +102,6 @@ def logout(response:Response, request:Request):
             response.delete_cookie(key="user_id")
             return response
     return templates.TemplateResponse(name="Login.html", context={"request": request, "login_error": "Need to login first to logout"})
-
 
 
 @app.get('/')
@@ -136,10 +139,12 @@ def exercises(request: Request):
 def contact(request: Request):
     return templates.TemplateResponse(name='Contact.html', context={"request": request})
 
+
 @app.get('/feedback')
 def review(request: Request):
     feedback_error = request.query_params.get('feedback_error', None)
     return templates.TemplateResponse(name='Feedback.html', context={"request": request, "feedback_error": feedback_error})
+
 
 @app.post('/feedback')
 @logged
