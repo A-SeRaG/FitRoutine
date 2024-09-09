@@ -12,6 +12,7 @@ class User(BaseModel, Base):
     password = Column(String(128), nullable=False)
     first_name = Column(String(128), nullable=True)
     last_name = Column(String(128), nullable=True)
+    gender = Column(String(6), nullable=True)
     reviews = relationship("Review", backref="user_reviews")
     sessions = relationship("Session", back_populates="user", cascade="all, delete, delete-orphan")
 
