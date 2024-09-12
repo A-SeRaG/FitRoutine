@@ -1,0 +1,44 @@
+body {
+    background-image: url(../IMG/circle-scatter-haikei\ \(1\).svg);
+    background-size:cover;
+    background-attachment: fixed;
+}
+
+.forms-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    /* Adjust the gap between the forms */
+    margin-top: 20px;
+}
+
+.register-form,
+.login-form {
+    width: 45%;
+    /* Adjust the width as needed */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
