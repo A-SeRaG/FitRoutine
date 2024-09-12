@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
 <body>
     <div class="header">
         <div class="logo">
-            <img src="../IMG/Untitled-1.png">
+            <img src="/static/img/Untitled-1.png">
         </div>
         <div class="nav">
-            <a href="Home.html">HOME</a>
-            <a href="Workouts.html">Workouts</a>
-            <a href="Contact.html">Contact</a>
-            <a href="Feedback.html">Feedback</a>
+            <a href="/">HOME</a>
+            <a href="/workout">Workouts</a>
+            <a href="/contact">Contact</a>
+            <a href="/feedback">Feedback</a>
         </div>
         <div class="buttons">
             <form action="/login">
@@ -51,12 +51,17 @@
         <a href="#">Register</a>
         <a href="#">Login</a>
     </label>
+    <!--  -->
     <div class="content">
         <div class="slogan">
-            <p>"Train with ease, achieve with breeze!"</p>
+            <p>"Train with </p>
+            <p><span>ease</span></p>
+            <p>, achieve with </p>
+            <p><span>breeze!</span>"</p>
         </div>
-        <img src="/static/img/pngegg.png" alt="">
+        <img src="/static/img/pngegg (1).png" alt="">
     </div>
+    <!--  -->
     <footer>
         <div class="continer">
             <div class="flogo">
@@ -90,11 +95,11 @@
                 </div>
             </div>
         </div>
-        <div class="bbar">
-            <p>&copy; 2024 FitRoutine.  All rights reserved</p>
-            <p>Privacy Policy  |  Terms of Use</p>
-        </div>
     </footer>
+    <div class="bbar">
+        <p>&copy; 2024 FitRoutine.  All rights reserved</p>
+        <p>Privacy Policy  |  Terms of Use</p>
+    </div>
     <script src="/static/js/sessionCheck.js"></script>
 </body>
 </html>

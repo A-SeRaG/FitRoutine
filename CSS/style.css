@@ -5,11 +5,11 @@
 }
 
 body {
-    background-image: url('../IMG/Backgraund.jpg');
+    background-image: url('/static/img/Backgraund.jpg');
     background-attachment: fixed;
     background-size: cover;
     font-family: Arial, Helvetica, sans-serif;
-    height: auto;
+    /* height: auto; */
     /* overflow: hidden; */
 }
 /* ------------------------------header--------------------------------- */
@@ -18,6 +18,7 @@ body {
     display: flex;
     background-color: rgba(0, 0, 0, -1);
     backdrop-filter: blur(14px);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
     padding: 20px 20px;
     width: 80%;
     height: 110px;
@@ -173,19 +174,36 @@ body {
 /* -------------------------------------------------------------------- */
 
 /* -------------------------------Content------------------------------ */
+/* -------Home------- */
 .content {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
     width: 80%;
     margin-left: 10%;
     margin-right: 10%;
     align-items: center;
     justify-content: space-around;
+    background-color: rgba(0, 0, 0, -1);
+    backdrop-filter: blur(4px);
 }
 .slogan p {
     color: #ffffff;
+    font-size: 60px;
+    text-shadow: #000000;
+    font-weight: 500;
+
+
+
+}
+.slogan p span {
+    color: #22D822;
+    font-size: 78px;
 }
 .content img {
-    width: 100px;
+    width: 50%;
 }
+/* ------------------- */
 /* ------Contact------ */
 .wrapper {
     padding: 10px 10%;
@@ -261,20 +279,22 @@ body {
 
 /* -------------------------------footer------------------------------- */
 footer {
-    position:absolute;
+    display: grid;
+    justify-content: end;
+    align-content: end;
+    position:relative;
     color: white;
     background-color: rgba(221, 226, 226, 0.363);
     backdrop-filter: blur(3px);
-    bottom: -1000px;
     margin: auto;
     width: 100%;
-    height: 330px;
-    justify-content: center;
 }
 .continer {
     justify-content: space-around;
     /* background-color: #909090; */
-    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 100px;
     border-radius: 15px;
     border-left: 20px;
     border-right: 20px;
@@ -282,9 +302,9 @@ footer {
     margin-top: 25px;
     margin-left: 10%;
     margin-right: 10%;
-    height: 280px;
+    height: auto;
 }
-.info {
+/* .info {
     display: flex;
     justify-content: space-between;
     width: 60%;
@@ -332,8 +352,9 @@ footer {
     text-align: center;
     margin: 10px;
 }
+*/
 .bbar {
-    /* position: absolute; */
+    position: absolute;
     display: flex;
     justify-content: space-around;
     text-align: center;
@@ -342,5 +363,5 @@ footer {
     display: inline-flex;
     position: absolute;
     
-}
+} 
 /* ------------------------------------------------------------------------ */
