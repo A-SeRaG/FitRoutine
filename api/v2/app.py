@@ -31,6 +31,8 @@ def logged(func):
         if request:
             session_id = request.cookies.get("session_id", None)
             user_id = request.cookies.get("user_id", None)
+            if session_id is None or user_id is None:
+                return RedirectResponse(url="/login?login_error User must log in first", status_code=303)
             session = storage.get(Session, session_id)
             if session.user_id == user_id:
                 if session.expires_at < datetime.now():
@@ -101,7 +103,7 @@ def logout(response: Response, request: Request):
             response.delete_cookie(key="session_id")
             response.delete_cookie(key="user_id")
             return response
-    return templates.TemplateResponse(name="Login.html", context={"request": request, "login_error": "Need to login first to logout"})
+    return RedirectResponse("/login?login_error User must log in first")
 
 
 @app.get('/')
@@ -141,6 +143,7 @@ def contact(request: Request):
 
 
 @app.get('/feedback')
+@logged
 def review(request: Request):
     feedback_error = request.query_params.get('feedback_error', None)
     return templates.TemplateResponse(name='Feedback.html', context={"request": request, "feedback_error": feedback_error})

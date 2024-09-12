@@ -1,15 +1,3 @@
-const container = document.getElementById('container');
-const registerBtn = document.getElementById('register');
-const loginBtn = document.getElementById('login');
-
-registerBtn.addEventListener('click', () => {
-    container.classList.add("active");
-});
-
-loginBtn.addEventListener('click', () => {
-    container.classList.remove("active");
-});
-
 function checkSession() {
     const session = document.cookie.split('; ').find(row => row.startsWith('session_id='));
     const user = document.cookie.split('; ').find(row => row.startsWith('user_id='));
@@ -23,6 +11,19 @@ function checkSession() {
         document.getElementById('registerBtn').style.display = 'inline-block';
         document.getElementById('logoutBtn').style.display = 'none';
     }
+    console.log("Hallo");
 }
-
 window.onload = checkSession;
+
+const container = document.getElementById('container');
+const registerBtn = document.getElementById('register');
+const loginBtn = document.getElementById('login');
+
+registerBtn.addEventListener('click', () => {
+    container.classList.add("active");
+});
+
+loginBtn.addEventListener('click', () => {
+    container.classList.remove("active");
+});
+
