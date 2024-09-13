@@ -33,15 +33,6 @@
             <i class='bx bx-x' id="close"></i>
         </label>
     </div>
-    {% for review in reviews %}
-    <h1 style="text-align: center; color: greenyellow; margin: 20px;">User review</h1>
-    <div style="text-align: center; color: pink; margin: 20px;">
-        <strong>User:</strong> {{ review.user }}<br>
-        <strong>Exercise:</strong> {{ review.exercise }}<br>
-        <strong>Review:</strong> {{ review.text }}<br>
-        <strong>Rating:</strong> {{ review.stars }} stars
-    </div>
-    {% endfor %}
     <input type="checkbox" id="do">
     <label for="do" class="menu">
         <a href="/">HOME</a>
@@ -54,52 +45,61 @@
     <!--  -->
     <div class="content">
         <div class="slogan">
-            <p>"Train with </p>
-            <p><span>ease</span></p>
-            <p>, achieve with </p>
-            <p><span>breeze!</span>"</p>
+            <p>Train with </p>
+            <p><span>EASE,</span></p>
+            <p>Achieve with </p>
+            <p><span>BREEZE!</span></p>
         </div>
         <img src="/static/img/pngegg (1).png" alt="">
     </div>
+    {% for review in reviews %}
+    <h1 style="text-align: center; color: greenyellow; margin: 20px;">User review</h1>
+    <div style="text-align: center; color: pink; margin: 20px;">
+        <strong>User:</strong> {{ review.user }}<br>
+        <strong>Exercise:</strong> {{ review.exercise }}<br>
+        <strong>Review:</strong> {{ review.text }}<br>
+        <strong>Rating:</strong> {{ review.stars }} stars
+    </div>
+    {% endfor %}
     <!--  -->
     <footer>
         <div class="continer">
-            <div class="flogo">
-                <img id="l" src="/static/img/Untitled-1.png">
-                <div class="lan">
-                    <img id="e" src="/static/img/icons8-earth-50.png" alt="">
+            <div class="left">
+                <div class="flogo">
+                    <img src="/static/img/Untitled-1.png">
+                </div>
+                <div class="icon">
+                    <img src="/static/img/icons8-earth-50.png" alt="">
                     <p>English</p>
                 </div>
             </div>
-            <div class="info">
-                <div class="about">
-                    <h2>About</h2>
-                    <p id="about">
-                        we offer personalized workout plans tailored to your fitness goals. Whether you're a beginner or an experienced athlete, our expert trainers create programs to help you build muscle, lose weight, or improve endurance.
-                    </p>
-                </div>
-                <div class="dev">
-                    <h2>Developers</h2>
-                    <li>
-                        <ul>Ahmed Serag</ul>
-                        <ul>Abdelrahman Amr</ul>
-                        <ul>Zahwa Abdelnaser</ul>
-                    </li>
-                </div>
-                <div class="com">
-                    <h2>Company</h2>
-                    <li>
-                        <ul>Alx Africa</ul>
-                        <ul>Holberton School</ul>
-                    </li>
-                </div>
+            <div class="about">
+                <h2>About</h2>
+                <p id="about">
+                    we offer personalized workout plans tailored to your fitness goals. Whether you're a beginner or an experienced athlete, our expert trainers create programs to help you build muscle, lose weight, or improve endurance.
+                </p>
+            </div>
+            <div class="dev">
+                <h2>Developers</h2>
+                <li>
+                    <ul>Ahmed Serag</ul>
+                    <ul>Abdelrahman Amr</ul>
+                    <ul>Zahwa Abdelnaser</ul>
+                </li>
+            </div>
+            <div class="com">
+                <h2>Company</h2>
+                <li>
+                    <ul>Alx Africa</ul>
+                    <ul>Holberton School</ul>
+                </li>
             </div>
         </div>
+        <div class="bbar">
+            <p>&copy; 2024 FitRoutine.  All rights reserved</p>
+            <p>Privacy Policy  |  Terms of Use</p>
+        </div>
     </footer>
-    <div class="bbar">
-        <p>&copy; 2024 FitRoutine.  All rights reserved</p>
-        <p>Privacy Policy  |  Terms of Use</p>
-    </div>
     <script src="/static/js/sessionCheck.js"></script>
 </body>
 </html>
