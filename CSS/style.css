@@ -278,10 +278,9 @@ body {
 
 /* -------------------------------footer------------------------------- */
 footer {
-    display: grid;
     justify-content: end;
     align-content: end;
-    position:relative;
+    /* position:relative; */
     color: white;
     background-color: rgba(221, 226, 226, 0.363);
     backdrop-filter: blur(3px);
@@ -291,17 +290,18 @@ footer {
 }
 .continer {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    /* gap: 40px; */
     width: 80%;
-    align-items: center;
     margin-top: 25px;
     margin-left: 10%;
-    margin-right: 10%; 
-    /* border-radius: 15px;
-    border-left: 20px;
-    border-right: 20px;
-    */
+    margin-right: 10%;
+    justify-content: space-around;
+}
+.continer .left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .flogo {
     align-items: center;
@@ -310,43 +310,37 @@ footer {
     align-items: center;
     width: 230px;
 }
-.lan img {
-    width: 20px;
+.icon img {
     display: inline;
+    height: 30px;
 }
-.info {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 30px;
+.left .icon {
+    display: flex;
+    text-align: center;
+    margin-top: 10px;
 }
-.info .com {
+.continer .com {
     text-align: center;
     list-style-type: none;
+    min-width: 200px;
 }
-.info .dev {
+.continer .dev {
     text-align: center;
     list-style-type: none;
-    min-width: ;
+    min-width: 200px;
 }
-.info ul {
+.continer ul {
     font-size: 18px;
     margin: 8px;
 }
-
-.info .about {
+.continer .about {
     text-align: center;
-    min-width: 240px;
+    min-width: 20px;
 }
-.info p {
+.continer p {
     font-size: 18px;
     margin: 8px;
     } 
-
-.flogo .lan {
-    text-align: center;
-    margin: 10px;
-}
-
 .bbar {
     display: flex;
     justify-content: space-around;
@@ -358,11 +352,26 @@ footer {
     display: inline-block;
     justify-content: left;
 } 
+
 @media (max-width: 992px) {
-    .info {
+    .continer {
         display: grid;
         grid-template-columns: 2fr 2fr;
         gap: 30px;
+    }
+}
+@media (max-width: 690px) {
+    .continer {
+        display: grid;
+        grid-template-columns: 4fr;
+        gap: 30px;
+    }
+    .bbar {
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        font-size: 12px;
+        border-top: 1px solid #fff;
     }
 }
 /* ------------------------------------------------------------------------ */
