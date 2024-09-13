@@ -18,7 +18,7 @@ app.mount("/static/css", StaticFiles(directory="CSS"), name="css")
 app.mount("/static/img", StaticFiles(directory="IMG"), name="img")
 app.mount("/static/js", StaticFiles(directory="JS"), name="js")
 
-templates = Jinja2Templates(directory="HTML")
+templates = Jinja2Templates(directory=".")
 
 
 def logged(func):
@@ -33,7 +33,7 @@ def logged(func):
             user_id = request.cookies.get("user_id", None)
             if session_id is None or user_id is None:
                 return RedirectResponse(url="/login?login_error User must log in first", status_code=303)
-            session = storage.get(Session, session_id)
+            session = storage.get(Session, session_id)  
             if session.user_id == user_id:
                 if session.expires_at < datetime.now():
                     return RedirectResponse(url="/login?login_error Session expired", status_code=303)
