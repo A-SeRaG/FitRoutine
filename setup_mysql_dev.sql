@@ -6,7 +6,7 @@ GRANT ALL PRIVILEGES ON `fit_dev_db`.* TO 'fit_dev'@'localhost';
 GRANT SELECT ON `performance_schema`.* TO 'fit_dev'@'localhost';
 FLUSH PRIVILEGES;
 
--- Add Excesizes
+-- Add Excersizes
 USE fit_dev_db;
 INSERT INTO exercises (id, target_muscle, name, description, rest_period_in_seconds, sets) VALUES ('f0fa151c-8a1e-41a2-b0e2-df2231e92e8b', 'leg', 'Squat', 'A basic lower-body exercise to strengthen the legs.', 60, 4);
 INSERT INTO exercises (id, target_muscle, name, description, rest_period_in_seconds, sets) VALUES ('0e779ce8-453c-46b4-acaf-09c5ab0142d5', 'leg', 'Lunge', 'A lower-body exercise that targets the quads and glutes.', 60, 3);
